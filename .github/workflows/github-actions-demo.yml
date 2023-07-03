@@ -1,5 +1,4 @@
-name: ci
-
+name: github-action
 on:
   push:
     branches:
@@ -27,9 +26,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Build and push
+        
         uses: docker/build-push-action@v4
         with:
           context: .
+          file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
