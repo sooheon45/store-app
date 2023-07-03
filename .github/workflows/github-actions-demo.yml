@@ -13,9 +13,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3
-
-      - name: Maven clean & install
-        run: mvn clean install
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
