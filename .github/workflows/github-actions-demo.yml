@@ -7,6 +7,9 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ../../Storage
     steps:
       -
         name: Checkout
@@ -26,7 +29,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Build and push
-        
         uses: docker/build-push-action@v4
         with:
           context: .
