@@ -42,7 +42,6 @@ jobs:
       - name: Build Maven Projects
         run: |
           mvn clean package -f ./Storage/pom.xml
-          mvn clean package -f ./manufacture/Factory/pom.xml
 
       # - name: Build with Maven for Storage.
       #   run: mvn clean package
@@ -57,7 +56,6 @@ jobs:
         with:
           context: |
             ./Storage
-            ./manufacture/Factory
           # context: ./Storage # Specify the path to the folder containing the Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
