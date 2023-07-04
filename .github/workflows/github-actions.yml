@@ -44,20 +44,18 @@ jobs:
           mvn clean package -f ./Storage/pom.xml
           mvn clean package -f ./manufacture/Factory/pom.xml
 
-      # - name: Build with Maven for Storage.
-      #   run: mvn clean package
-      #   working-directory: ./Storage
+      - name: Prepare Context
+        run: |
+            echo "./Storage" > directories.txt
+            echo "./manufacture/Factory" >> directories.txt
 
-      # - name: Build with Maven for Factory.
-      #   run: mvn clean package
-      #   working-directory: ./manufacture/Factory
-      
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context:
-            ./Storage
-            ./manufacture/Factory
+          context: ./directories.txt
+          # context: |
+          #   ./Storage
+          #   ./manufacture/Factory
           # context: ./Storage # Specify the path to the folder containing the Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
@@ -65,3 +63,13 @@ jobs:
             ghcr.io/sooheon45/store-app:latest
             ghcr.io/sooheon45/store-app:2.0.0
             
+
+
+
+      # - name: Build with Maven for Storage.
+      #   run: mvn clean package
+      #   working-directory: ./Storage
+
+      # - name: Build with Maven for Factory.
+      #   run: mvn clean package
+      #   working-directory: ./manufacture/Factory
