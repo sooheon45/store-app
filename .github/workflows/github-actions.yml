@@ -1,18 +1,11 @@
 name: github-action
-
-#  display name in gihub-action
 run-name: ${{ github.actor }} is out building GitHub Actions
-
-# on:
-#   push:
-#     # Pattern matched against refs/tags
-#     tags:        
-#       - '**' 
 
 on:
   push:
-    branches:
-      - "main"
+    # Pattern matched against refs/tags
+    tags:        
+      - '**' 
 
 jobs:
   docker:
@@ -37,24 +30,15 @@ jobs:
       - name: Build Maven Projects
         run: |
           mvn clean package -f ./Storage/pom.xml
-          mvn clean package -f ./manufacture/Factory/pom.xml
 
-      - name: Build and push for Storage
+      - name: Docker Build and push for Storage
         uses: docker/build-push-action@v4
         with:
           context: ./Storage
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/sooheon45/store-app/storage:latest
-            ghcr.io/sooheon45/store-app/storage:1.0.0
+            ghcr.io/${{ github.repository_owner }}/storeapp/Storage:latest
+            ghcr.io/${{ github.repository_owner }}/storeapp/Storage:${{ github.ref_name }}
             
-      - name: Build and push for Factory
-        uses: docker/build-push-action@v4
-        with:
-          context: ./manufacture/Factory
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            ghcr.io/sooheon45/store-app/manufacture-factory:latest
-            ghcr.io/sooheon45/store-app/manufacture-factory:1.0.0
+     
