@@ -39,25 +39,22 @@ jobs:
           mvn clean package -f ./Storage/pom.xml
           mvn clean package -f ./manufacture/Factory/pom.xml
 
-      - name: Build and push
+      - name: Build and push for Storage
         uses: docker/build-push-action@v4
         with:
-          context: |
-            ./Storage \n
-            ./manufacture/Factory
+          context: ./Storage
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/sooheon45/store-app:latest
-            ghcr.io/sooheon45/store-app:2.0.0
+            ghcr.io/sooheon45/store-app/storage:latest
+            ghcr.io/sooheon45/store-app/storage:1.0.0
             
-
-
-
-      # - name: Build with Maven for Storage.
-      #   run: mvn clean package
-      #   working-directory: ./Storage
-
-      # - name: Build with Maven for Factory.
-      #   run: mvn clean package
-      #   working-directory: ./manufacture/Factory
+      - name: Build and push for Factory
+        uses: docker/build-push-action@v4
+        with:
+          context: ./manufacture/Factory
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/sooheon45/store-app/manufacture-factory:latest
+            ghcr.io/sooheon45/store-app/manufacture-factory:1.0.0
