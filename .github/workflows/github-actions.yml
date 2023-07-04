@@ -32,10 +32,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots package
-        working-directory: ./Storage
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       
@@ -49,17 +45,29 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      # - name: Build with Maven
-      #   run: mvn package
+      - name: Build Maven Projects
+        run: |
+          mvn clean install -f ./Storage/pom.xml
+          mvn clean install -f ./manufacture/Factory/pom.xml
+
+      # - name: Build with Maven for Storage.
+      #   run: mvn clean package
       #   working-directory: ./Storage
+
+      # - name: Build with Maven for Factory.
+      #   run: mvn clean package
+      #   working-directory: ./manufacture/Factory
       
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./Storage # Specify the path to the folder containing the Dockerfile
+          context: |
+            ./Storage/target/
+            ./manufacture/Factory/target/
+          # context: ./Storage # Specify the path to the folder containing the Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ghcr.io/sooheon45/store-app:latest
-            ghcr.io/sooheon45/store-app:1.0.0
+            ghcr.io/sooheon45/store-app:2.0.0
             
