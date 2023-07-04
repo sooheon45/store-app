@@ -41,8 +41,8 @@ jobs:
       
       - name: Build Maven Projects
         run: |
-          mvn clean install -f ./Storage/pom.xml
-          mvn clean install -f ./manufacture/Factory/pom.xml
+          mvn clean package -f ./Storage/pom.xml
+          mvn clean package -f ./manufacture/Factory/pom.xml
 
       # - name: Build with Maven for Storage.
       #   run: mvn clean package
