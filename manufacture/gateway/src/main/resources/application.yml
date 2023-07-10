@@ -12,6 +12,10 @@ spring:
           uri: http://localhost:8083
           predicates:
             - Path=/factories/**, 
+        - id: Store
+          uri: http://localhost:8084
+          predicates:
+            - Path=/stores/**, 
         - id: frontend
           uri: http://localhost:8081
           predicates:
@@ -39,6 +43,10 @@ spring:
           uri: http://factory:8080
           predicates:
             - Path=/factories/**, 
+        - id: Store
+          uri: http://store:8080
+          predicates:
+            - Path=/stores/**, 
         - id: frontend
           uri: http://frontend:8080
           predicates:

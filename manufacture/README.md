@@ -21,6 +21,7 @@ cd /bin
 See the README.md files inside the each microservices directory:
 
 - Factory
+- Store
 
 
 ## Run API Gateway (Spring Gateway)
@@ -33,6 +34,10 @@ mvn spring-boot:run
 - Factory
 ```
  http :8088/factories id="id" lineNum="lineNum" qty="qty" name="name" orderId="orderId" 
+```
+- Store
+```
+ http :8088/stores id="id" 
 ```
 
 
